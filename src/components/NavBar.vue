@@ -35,7 +35,7 @@
 <script>
 export default {
   data: () => ({
-    links: ["Reservations", "Notifications", "Evidentions"],
+    links: ["Reservations"],
   }),
 };
 </script>
