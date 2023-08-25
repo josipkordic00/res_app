@@ -28,7 +28,7 @@
 <script>
 export default {
   data: () => ({
-    links: ["Reservations"],
+    links: ["admin"],
   }),
 };
 </script>

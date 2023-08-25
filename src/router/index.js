@@ -14,8 +14,8 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/reservations',
-    name: 'reservations',
+    path: '/admin',
+    name: 'admin',
     component: ReservationView
   }
 ]

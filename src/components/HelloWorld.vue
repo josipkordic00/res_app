@@ -76,7 +76,12 @@
                           v-on="on"
                         ></v-text-field>
                       </template>
-                      <v-date-picker v-model="date" no-title scrollable>
+                      <v-date-picker
+                        v-model="date"
+                        no-title
+                        scrollable
+                        @input="handleDateChange"
+                      >
                         <v-spacer></v-spacer>
                         <v-btn text color="primary" @click="menu = false">
                           Cancel
@@ -119,13 +124,24 @@
             <br />
             <br />
             <v-btn
-              @click.prevent.self="findCurrentProfessor2"
-              class="me-4 ml-10"
+              @click="updateData"
+              class="me-4 ml-10 mb-3"
               type="submit"
               color="blue"
               style="color: white"
             >
               reserve
+            </v-btn>
+            <br />
+
+            <v-btn
+              @click="cancelData"
+              class="me-4 ml-10 pl-5 pr-5"
+              type="submit"
+              color="red"
+              style="color: white"
+            >
+              cancel
             </v-btn>
           </v-col>
         </v-row>
@@ -146,6 +162,7 @@ export default {
       institutions: [],
       professors: [],
       classrooms: [],
+      reserved_date: null,
     };
   },
   created() {
@@ -183,6 +200,10 @@ export default {
     },
   },
   methods: {
+    handleDateChange(newDate) {
+      this.reserved_date = newDate;
+      console.log("Selected Date:", this.reserved_date);
+    },
     showClassroom(classroom) {
       this.currentClassroom = classroom;
     },
@@ -218,6 +239,48 @@ export default {
           console.error(error);
         });
     },
+    updateData() {
+      const requestData = {
+        ustanova_id: this.currentClassroom.ustanova_id,
+        nastavnik_id: this.selectedProfessorObject.id,
+        broj: this.currentClassroom.broj,
+        zauzeto: 1,
+        datum_rezervacije: this.reserved_date,
+      };
+
+      axiosInstance
+        .post(`/ucionica/uredi/${this.currentClassroom.id}`, requestData)
+        .then((response) => {
+          console.log(response.data); // Response from the server
+        })
+        .catch((error) => {
+          console.error(error); // Handle error
+        });
+      setTimeout(() => {
+        window.location.reload();
+      }, 200);
+    },
+    cancelData(){
+      const requestData = {
+        ustanova_id: this.currentClassroom.ustanova_id,
+        nastavnik_id: this.selectedProfessorObject.id,
+        broj: this.currentClassroom.broj,
+        zauzeto: 0,
+        datum_rezervacije: "",
+      };
+
+      axiosInstance
+        .post(`/ucionica/uredi/${this.currentClassroom.id}`, requestData)
+        .then((response) => {
+          console.log(response.data); // Response from the server
+        })
+        .catch((error) => {
+          console.error(error); // Handle error
+        });
+        setTimeout(() => {
+        window.location.reload();
+      }, 200);
+    }
   },
 };
 </script>
