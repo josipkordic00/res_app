@@ -21,14 +21,7 @@
           </v-tab>
         </v-tabs>
   
-        <v-avatar
-          class="hidden-sm-and-down"
-          color="blue darken-3 shrink"
-          size="32"
-          style="cursor: pointer"
-        >
-          <b style="color: white">U</b>
-        </v-avatar>
+        
       </v-app-bar>
     </nav>
 </template>
