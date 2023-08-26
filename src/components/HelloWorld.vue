@@ -170,7 +170,7 @@ export default {
   },
   computed: {
     selectedProfessorObject() {
-      console.log("radi");
+      
       return this.professors.find(
         (professor) => professor.email === this.selectedProfessorEmail
       );
@@ -202,7 +202,7 @@ export default {
   methods: {
     handleDateChange(newDate) {
       this.reserved_date = newDate;
-      console.log("Selected Date:", this.reserved_date);
+      
     },
     showClassroom(classroom) {
       this.currentClassroom = classroom;
@@ -212,7 +212,7 @@ export default {
         .get("/ustanova/dohvati")
         .then((response) => {
           this.institutions = response.data;
-          console.log(this.institutions);
+          
         })
         .catch((error) => {
           // Handle the error
@@ -222,7 +222,7 @@ export default {
         .get("/ucionica/dohvati")
         .then((response) => {
           this.classrooms = response.data;
-          console.log(this.classrooms);
+          
         })
         .catch((error) => {
           // Handle the error
@@ -232,7 +232,7 @@ export default {
         .get("/nastavnik/dohvati")
         .then((response) => {
           this.professors = response.data;
-          console.log(this.professors);
+         
         })
         .catch((error) => {
           // Handle the error
